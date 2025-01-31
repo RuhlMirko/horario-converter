@@ -1,4 +1,5 @@
 import tkinter.filedialog
+from convert import search_text_in_pdf
 
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
@@ -22,10 +23,16 @@ def search_filename():
     filename = tkinter.filedialog.askopenfilename()
     if filename:
         pdf_path_entry.insert(END,filename)
+    else:
+        title_lbl.configure(text='Please select a valid file')
 
-def convert():
-    pass
+def convert_file():
+    filepath = pdf_path_entry.get()
+    if filepath:
 
+        search_text_in_pdf(filepath)
+    else:
+        title_lbl.configure(text='Invalid filepath')
 
 # Widgets
 pdf_path_entry = tb.Entry(pdf_frame, style='info', width=70)
@@ -33,7 +40,7 @@ pdf_path_entry.grid(row=0, column=0, columnspan=2, pady=10)
 
 search_btn = tb.Button(pdf_frame, text='Search file', width=20, command=search_filename)
 search_btn.grid(row=1, column=0)
-convert_btn = tb.Button(pdf_frame, text='Convert pdf', width=20, style='outline-info')
+convert_btn = tb.Button(pdf_frame, text='Convert pdf', width=20, style='outline-info', command=convert_file)
 convert_btn.grid(row=1, column=1)
 
 

@@ -4,7 +4,7 @@ import os
 
 
 # Function to search for a string and get the next 7 lines
-def search_text_in_pdf(pdf_path, search_string, lines_after=7):
+def search_text_in_pdf(pdf_path, search_string='RUHL, MIRKO JOEL', lines_after=7):
     dias = ['Nombre', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
     full_str = ''
 
@@ -26,7 +26,7 @@ def search_text_in_pdf(pdf_path, search_string, lines_after=7):
                 for i in range(8):
                     full_str += extracted_lines[i] + "-" * (50 - len(dias[i]) - len(extracted_lines[i]) - 2) + dias[
                         i] + '\n'
-                return full_str  # Join lines into a single string
+                text_to_image(full_str, "output.png")  # Join lines into a single string
     return None  # Return None if not found
 
 
@@ -46,14 +46,14 @@ def text_to_image(text, output_image_path, font_size=15):
 
 
 # Example usage
-pdf_path = r"C:\PycharmProjects\horarios-converter\test\horarios-test.pdf"
-search_string = "RUHL, MIRKO JOEL"
+# pdf_path = r"C:\PycharmProjects\horarios-converter\test\horarios-test.pdf"
+# search_string = "RUHL, MIRKO JOEL"
 
-found_text = search_text_in_pdf(pdf_path, search_string, lines_after=7)
-
-if found_text:
-    print(f"Extracted Text:\n{found_text}")  # Print the extracted text
-    text_to_image(found_text, "output.png")
-    print("Image saved as output.png.")
-else:
-    print("Text not found in the PDF.")
+# found_text = search_text_in_pdf(pdf_path, search_string, lines_after=7)
+#
+# if found_text:
+#     print(f"Extracted Text:\n{found_text}")  # Print the extracted text
+#     text_to_image(found_text, "output.png")
+#     print("Image saved as output.png.")
+# else:
+#     print("Text not found in the PDF.")

@@ -1,3 +1,5 @@
+import tkinter.filedialog
+
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
 # root
@@ -15,11 +17,21 @@ title_lbl.pack(pady=30)
 pdf_frame = tb.Frame(root)
 pdf_frame.pack(pady=10)
 
+# Functions
+def search_filename():
+    filename = tkinter.filedialog.askopenfilename()
+    if filename:
+        pdf_path_entry.insert(END,filename)
+
+def convert():
+    pass
+
+
 # Widgets
 pdf_path_entry = tb.Entry(pdf_frame, style='info', width=70)
 pdf_path_entry.grid(row=0, column=0, columnspan=2, pady=10)
 
-search_btn = tb.Button(pdf_frame, text='Search file', width=20)
+search_btn = tb.Button(pdf_frame, text='Search file', width=20, command=search_filename)
 search_btn.grid(row=1, column=0)
 convert_btn = tb.Button(pdf_frame, text='Convert pdf', width=20, style='outline-info')
 convert_btn.grid(row=1, column=1)

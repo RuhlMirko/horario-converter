@@ -5,7 +5,7 @@ import os
 
 # Function to search for a string and get the next 7 lines
 def search_text_in_pdf(pdf_path, search_string, lines_after=7):
-    dias = ['', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+    dias = ['Nombre', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
     full_str = ''
 
     if not os.path.exists(pdf_path):
@@ -16,27 +16,30 @@ def search_text_in_pdf(pdf_path, search_string, lines_after=7):
     for page_num in range(len(doc)):  # Loop through all pages
         text_lines = doc[page_num].get_text("text").split("\n")  # Split text into lines
         for i, line in enumerate(text_lines):
+
+            if 'Plan de horarios para la semana' in line:
+                full_str += line + '\n'
+
             if search_string in line:  # If search string is found
+
                 extracted_lines = text_lines[i: i + lines_after + 1]  # Get the next N lines
                 for i in range(8):
-                    full_str += extracted_lines[i] + ' -- ' + dias[i] + '\n'
-
-                print(full_str)
-                # full_string = "\n".join(extracted_lines)
+                    full_str += extracted_lines[i] + "-" * (50 - len(dias[i]) - len(extracted_lines[i]) - 2) + dias[
+                        i] + '\n'
                 return full_str  # Join lines into a single string
     return None  # Return None if not found
 
 
 # Function to convert text into an image
-def text_to_image(text, output_image_path, font_size=38):
-    font = ImageFont.truetype("arial.ttf", font_size)  # Default font
-    image = Image.new("RGB", (550, 400), "white")  # Create a blank image
+def text_to_image(text, output_image_path, font_size=15):
+    font = ImageFont.truetype("lucon.ttf", font_size)  # Default font
+    image = Image.new("RGB", (530, 250), "white")  # Create a blank image
     draw = ImageDraw.Draw(image)
 
     # Draw text line by line
     y_position = 20
     for line in text.split("\n"):
-        draw.text((70, y_position), line, font=font, fill="black")
+        draw.text((20, y_position), line, font=font, fill="black")
         y_position += font_size + 5  # Adjust line spacing
 
     image.save(output_image_path)  # Save the image

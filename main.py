@@ -3,9 +3,13 @@ from convert import search_text_in_pdf
 
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
+
+OUTPUTS_IMG = 'D:/Descargas/Horarios'
+
 # root
 root = tb.Window(themename='darkly')
-root.geometry('500x400')
+root.geometry('500x250')
+root.iconbitmap('pdf-icon.ico')
 
 # styles
 Style = tb.Style()
@@ -44,6 +48,9 @@ convert_btn = tb.Button(pdf_frame, text='Convert pdf', width=20, style='outline-
 convert_btn.grid(row=1, column=1)
 
 
+pdf_img_var = tb.StringVar(value=OUTPUTS_IMG)
+pdf_img_entry = tb.Entry(root, textvariable=pdf_img_var, width=70, state=READONLY)
+pdf_img_entry.pack(padx=10, pady=5)
 
 
 root.mainloop()

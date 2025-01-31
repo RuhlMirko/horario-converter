@@ -26,12 +26,12 @@ def search_text_in_pdf(pdf_path, search_string='RUHL, MIRKO JOEL', lines_after=7
                 for i in range(8):
                     full_str += extracted_lines[i] + "-" * (50 - len(dias[i]) - len(extracted_lines[i]) - 2) + dias[
                         i] + '\n'
-                text_to_image(full_str, "output.png")  # Join lines into a single string
+                text_to_image(full_str)  # Join lines into a single string
     return None  # Return None if not found
 
 
 # Function to convert text into an image
-def text_to_image(text, output_image_path, font_size=15):
+def text_to_image(text, output_image_path='D:/Descargas/Horarios/output.png', font_size=15):
     font = ImageFont.truetype("lucon.ttf", font_size)  # Default font
     image = Image.new("RGB", (530, 250), "white")  # Create a blank image
     draw = ImageDraw.Draw(image)

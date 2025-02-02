@@ -25,19 +25,22 @@ pdf_frame.pack(pady=10)
 
 # Functions
 def search_filename():
+    pdf_path_entry.delete(0, END)
     filename = tkinter.filedialog.askopenfilename()
     if filename:
-        pdf_path_entry.insert(END,filename)
+        pdf_path_entry.insert(END, filename)
     else:
-        title_lbl.configure(text='Please select a valid file')
+        title_lbl.configure(text='Please select a valid file', bootstyle='danger')
 
 def convert_file():
     filepath = pdf_path_entry.get()
-    if filepath:
-
+    if filepath.endswith('.pdf'):
+        pdf_path_entry.delete(0, END)
+        title_lbl.configure(text='Image ready on folder', bootstyle='success')
         search_text_in_pdf(filepath)
     else:
-        title_lbl.configure(text='Invalid filepath')
+        title_lbl.configure(text='Invalid filepath', bootstyle='danger')
+
 
 def open_folder():
     path = os.path.realpath(OUTPUTS_IMG)

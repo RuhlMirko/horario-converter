@@ -38,8 +38,11 @@ def text_to_image(text, output_image_path, font_size=15):
 
     # Draw text line by line
     y_position = 20
-    for line in text.split("\n"):
-        draw.text((20, y_position), line, font=font, fill="black")
+    for i, line in enumerate(text.split("\n")):
+        if i >= 1:
+            draw.text((40, y_position), line, font=font, fill="black")
+        else:
+            draw.text((18, y_position), line, font=font, fill="black")
         y_position += font_size + 5  # Adjust line spacing
 
     image.save(output_image_path)  # Save the image

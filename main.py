@@ -1,3 +1,4 @@
+import os.path
 import tkinter.filedialog
 from convert import search_text_in_pdf
 
@@ -8,7 +9,7 @@ OUTPUTS_IMG = 'D:/Descargas/Horarios'
 
 # root
 root = tb.Window(themename='darkly')
-root.geometry('500x250')
+root.geometry('500x290')
 root.iconbitmap('pdf-icon.ico')
 
 # styles
@@ -38,6 +39,11 @@ def convert_file():
     else:
         title_lbl.configure(text='Invalid filepath')
 
+def open_folder():
+    path = os.path.realpath(OUTPUTS_IMG)
+    os.startfile(path)
+
+
 # Widgets
 pdf_path_entry = tb.Entry(pdf_frame, style='info', width=70)
 pdf_path_entry.grid(row=0, column=0, columnspan=2, pady=10)
@@ -51,6 +57,9 @@ convert_btn.grid(row=1, column=1)
 pdf_img_var = tb.StringVar(value=OUTPUTS_IMG)
 pdf_img_entry = tb.Entry(root, textvariable=pdf_img_var, width=70, state=READONLY)
 pdf_img_entry.pack(padx=10, pady=5)
+
+folder_btn = tb.Button(root, text='Open folder', width=20, style='outline-info', command=open_folder)
+folder_btn.pack()
 
 
 root.mainloop()

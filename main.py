@@ -14,11 +14,12 @@ root.iconbitmap('pdf-icon.ico')
 
 # styles
 Style = tb.Style()
-Style.configure('TLabel', font=('Segoe UI', 14, 'bold'))
+Style.configure('titleLabel.TLabel', font=('Segoe UI', 14, 'bold'))
+Style.configure('path.TLabel', font=('Segoe UI', 10, 'italic'), foreground='#666')
 Style.configure('TButton', font=('Segoe UI', 10))
 
 # Title
-title_lbl = tb.Label(text='PDF Converter')
+title_lbl = tb.Label(text='PDF Converter', style='titleLabel.TLabel')
 title_lbl.pack(pady=30)
 pdf_frame = tb.Frame(root)
 pdf_frame.pack(pady=10)
@@ -57,9 +58,8 @@ convert_btn = tb.Button(pdf_frame, text='Convert pdf', width=20, style='outline-
 convert_btn.grid(row=1, column=1)
 
 
-pdf_img_var = tb.StringVar(value=OUTPUTS_IMG)
-pdf_img_entry = tb.Entry(root, textvariable=pdf_img_var, width=70, state=READONLY)
-pdf_img_entry.pack(padx=10, pady=5)
+pdf_lbl_path = tb.Label(root, text=OUTPUTS_IMG, style='path.TLabel')
+pdf_lbl_path.pack(padx=10, pady=5)
 
 folder_btn = tb.Button(root, text='Open folder', width=20, style='outline-info', command=open_folder)
 folder_btn.pack()

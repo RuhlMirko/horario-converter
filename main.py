@@ -9,8 +9,18 @@ OUTPUTS_IMG = 'D:/Descargas/Horarios'
 
 # root
 root = tb.Window(themename='darkly')
-root.geometry('500x290')
 root.iconbitmap('pdf-icon.ico')
+
+# Center app on window
+app_width = 500
+app_height = 290
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+x = int((screen_width/2) -(app_width/2))
+y = int((screen_height/2) -(app_height/2))
+
+root.geometry(f'{app_width}x{app_height}+{x}+{y}')
+
 
 # styles
 Style = tb.Style()

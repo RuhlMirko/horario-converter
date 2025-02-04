@@ -1,5 +1,7 @@
 import os.path
+import time
 import tkinter.filedialog
+import tkinter
 from convert import search_text_in_pdf
 
 import ttkbootstrap as tb
@@ -13,14 +15,13 @@ root.iconbitmap('pdf-icon.ico')
 
 # Center app on window
 app_width = 500
-app_height = 290
+app_height = 320
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
-x = int((screen_width/2) -(app_width/2))
-y = int((screen_height/2) -(app_height/2))
+x = int((screen_width / 2) - (app_width / 2))
+y = int((screen_height / 2) - (app_height / 2))
 
 root.geometry(f'{app_width}x{app_height}+{x}+{y}')
-
 
 # styles
 Style = tb.Style()
@@ -34,6 +35,7 @@ title_lbl.pack(pady=30)
 pdf_frame = tb.Frame(root)
 pdf_frame.pack(pady=10)
 
+
 # Functions
 def search_filename():
     pdf_path_entry.delete(0, END)
@@ -42,6 +44,7 @@ def search_filename():
         pdf_path_entry.insert(END, filename)
     else:
         title_lbl.configure(text='Please select a valid file', bootstyle='danger')
+
 
 def convert_file():
     filepath = pdf_path_entry.get()
@@ -67,12 +70,40 @@ search_btn.grid(row=1, column=0)
 convert_btn = tb.Button(pdf_frame, text='Convert pdf', width=20, style='outline-info', command=convert_file)
 convert_btn.grid(row=1, column=1)
 
-
 pdf_lbl_path = tb.Label(root, text=OUTPUTS_IMG, style='path.TLabel')
 pdf_lbl_path.pack(padx=10, pady=5)
 
 folder_btn = tb.Button(root, text='Open folder', width=20, style='outline-info', command=open_folder)
 folder_btn.pack()
 
+# Animations
+count = 0
+size = 10
+
+
+def contract():
+    global count, size
+    if count <= 10 and count > 0:
+        size -= 2
+        test_btn.configure(font=('Helvetica', size))
+        count -= 1
+        root.after(20, contract)
+    elif count == 0:
+        expand()
+
+def expand():
+    global count, size
+    if count < 10:
+        size += 2
+        test_btn.configure(font=('Helvetica', size))
+        count += 1
+        root.after(10, expand)
+        print(count)
+    elif count == 10:
+        contract()
+
+
+test_btn = tkinter.Button(root, text='test', command=expand)
+test_btn.pack(pady=10)
 
 root.mainloop()

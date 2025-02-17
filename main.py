@@ -29,9 +29,24 @@ Style.configure('titleLabel.TLabel', font=('Segoe UI', 14, 'bold'))
 Style.configure('path.TLabel', font=('Segoe UI', 10, 'italic'), foreground='#666')
 Style.configure('TButton', font=('Segoe UI', 10))
 
+
+
+def toggle_theme():
+    current_theme = root.style.theme_use()
+    print(current_theme)
+    new_theme = "darkly" if "lumen" in current_theme else "lumen"
+    new_icon = "💡" if "lumen" in current_theme else "🌓"
+    toggle_btn.configure(text=new_icon)
+    root.style.theme_use(new_theme)
+
+
+toggle_btn = tb.Button(root, text="💡", command=toggle_theme, bootstyle='outline-secondary')
+toggle_btn.pack(padx=20, pady=(10,0))
+
+
 # Title
 title_lbl = tb.Label(text='PDF Converter', style='titleLabel.TLabel')
-title_lbl.pack(pady=30)
+title_lbl.pack(pady=(5, 30))
 pdf_frame = tb.Frame(root)
 pdf_frame.pack(pady=10)
 
@@ -76,34 +91,7 @@ pdf_lbl_path.pack(padx=10, pady=5)
 folder_btn = tb.Button(root, text='Open folder', width=20, style='outline-info', command=open_folder)
 folder_btn.pack()
 
-# Animations
-count = 0
-size = 10
 
 
-def contract():
-    global count, size
-    if count <= 10 and count > 0:
-        size -= 2
-        test_btn.configure(font=('Helvetica', size))
-        count -= 1
-        root.after(20, contract)
-    elif count == 0:
-        expand()
-
-def expand():
-    global count, size
-    if count < 10:
-        size += 2
-        test_btn.configure(font=('Helvetica', size))
-        count += 1
-        root.after(10, expand)
-        print(count)
-    elif count == 10:
-        contract()
-
-
-test_btn = tkinter.Button(root, text='test', command=expand)
-test_btn.pack(pady=10)
 
 root.mainloop()
